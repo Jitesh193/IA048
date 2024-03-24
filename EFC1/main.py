@@ -27,14 +27,19 @@ t = df['date']
 df_new = pd.DataFrame({'X': voos, 'Y': t})
 
 print(df_new.head(10))
-print('-----------------------------------------')
-print(df_new.Y)
+
+# Questao 1
+t1 = pd.Timestamp('2008-08-01')
+t2 = pd.Timestamp('2019-12-01')
 
 plt.figure(figsize=(10, 6))
 plt.plot(t, voos, label='Numero total de voos')
+plt.axvline(t1, color='b', label='Intervalo 1')
+plt.axvline(t2, color='g', label='Intervalo 2')
 plt.xlabel('Time')
 plt.ylabel('Numero de voos (em mil)')
 plt.legend()
 plt.grid(True)
 plt.show()
 
+# Questao 2
