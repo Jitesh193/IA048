@@ -52,5 +52,10 @@ index = pd.Index(df_new.Y).get_loc('2019-12-01')
 print(index)
 
 train = df_new.iloc[0:index+1].copy()
+test = df_new.iloc[index+1:].copy()
+
+print(train)
+print('---------------------------------------')
+print(test)
 
 # df_new['Y'] = (df_new.index.values + 0.5) / 12
