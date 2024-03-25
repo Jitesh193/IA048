@@ -6,18 +6,15 @@ RA: 175867
 
 import pandas as pd
 import matplotlib.pyplot as plt
-
-# Dados do cabecalho:
-# Ano e mes; Dom_pax (Passageiros domesticos); Int_pax (passageiros internacionais); Pax (passageiros totais);
-# Dom_flt (voos domesticos); Int_flt (voos internacionais); Flt (voos totais); Dom_RPM (Revenue Passenger-miles
-# (Domestic)); Int_RPM (Revenue Passenger-miles (International))
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', 1000)
 
 # df = pd.read_csv("D:/Usuario/Desktop/Backup/Jitesh/IA048/EFC1/air_traffic.csv")
 df = pd.read_csv("D:/Jitesh/Unicamp/IA048/EFC1/air_traffic.csv")
 
 df['date'] = pd.to_datetime(df[['Year', 'Month']].assign(DAY=1))
 
-
+print(df.head(10))
 
 total_flt = df['Flt']
 voos = []
@@ -49,7 +46,6 @@ plt.show()
 
 index = pd.Index(df_new.Y).get_loc('2019-12-01')
 
-print(index)
 
 train = df_new.iloc[0:index+1].copy()
 test = df_new.iloc[index+1:].copy()
@@ -59,3 +55,4 @@ print('---------------------------------------')
 print(test)
 
 # df_new['Y'] = (df_new.index.values + 0.5) / 12
+
