@@ -10,8 +10,8 @@ from sklearn.linear_model import LinearRegression
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
 
-# df = pd.read_csv("D:/Usuario/Desktop/Backup/Jitesh/IA048/EFC1/air_traffic.csv")
-df = pd.read_csv("D:/Jitesh/Unicamp/IA048/EFC1/air_traffic.csv")
+df = pd.read_csv("D:/Usuario/Desktop/Backup/Jitesh/IA048/EFC1/air_traffic.csv")
+#df = pd.read_csv("D:/Jitesh/Unicamp/IA048/EFC1/air_traffic.csv")
 
 df['date'] = pd.to_datetime(df[['Year', 'Month']].assign(DAY=1))
 
@@ -48,18 +48,18 @@ train = df.iloc[0:index1+1].copy()
 valid = df.iloc[index1+1:index2+1].copy()
 test = df.iloc[index2+1:].copy()
 
-# print(train)
-# print('---------------------------------------')
-# print(valid)
-# print('---------------------------------------')
-# print(test)
+print(train)
+print('---------------------------------------')
+print(valid)
+print('---------------------------------------')
+print(test)
 
 # ind = (0.125*12)-0.5
 
-"Exemplo K = 2"
+"Exemplo K = 3"
 
-print(train[-3:])   # Slicing
-print(train.time[-2:])
+# print(train[-3:])   # Slicing
+# print(train.time[-2:])
 x = list(train['time'])
 y = list(train['Flt'])
 
@@ -72,14 +72,14 @@ for i in range(num):
 
     # if i == 100:
     #     print('pare aqui')
-    if num-3-i < 0 & num - i >= 0:
-        train_x.append([0]*(i+3-num) + x[0:num-i])
+    if num-3-i-1 < 0 & num - i - 1 >= 0:
+        train_x.append([0]*(i+3+1-num) + x[0:num-i-1])
     else:
-        train_x.append(x[num - 3 - i:num - i])
+        train_x.append(x[num - 3 - i - 1:num - i-1])
     train_y.append(y[num-1-i])
 
-print(f'Os dados de treino x para k=2 sao {train_x}')
-print(f'Os dados de treino y para k=2 sao {train_y}')
+print(f'Os dados de treino x para k=3 sao {train_x}')
+print(f'Os dados de treino y para k=3 sao {train_y}')
 
 model = LinearRegression().fit(train_x, train_y)
 coeffs = [model.coef_[0], model.intercept_]
@@ -98,30 +98,51 @@ y_valid = list(valid['Flt'])
 
 num_valid = len(valid)
 
+# print(num_valid)
+# print(x[-3+0:])
+# print(x_valid[:1])
+# print(x[-3+1:] + x_valid[:1])
+# print(y_valid[1])
 valid_x = []
 valid_y = []
+# for i in range(num_valid):
+#
+#     # if i == 100:
+#     #     print('pare aqui')
+#     if num_valid-3-i < 0 & num_valid - i >= 0:
+#         valid_x.append(x[num_valid-3-i:] + x_valid[0:num_valid-i])
+#     else:
+#         valid_x.append(x_valid[num_valid - 3 - i:num_valid - i])
+#     valid_y.append(y_valid[num_valid-1-i])
+#
+
 for i in range(num_valid):
 
     # if i == 100:
     #     print('pare aqui')
-    if num_valid-3-i < 0 & num_valid - i >= 0:
-        valid_x.append(x[num_valid-3-i:] + x_valid[0:num_valid-i])
+    if i < 3:
+        valid_x.append(x[-3+i:] + x_valid[:i])
+    elif i == 3:
+        valid_x.append(x_valid[:i])
     else:
-        valid_x.append(x_valid[num_valid - 3 - i:num_valid - i])
-    valid_y.append(y_valid[num_valid-1-i])
+        valid_x.append(x_valid[i-3:i])
+    valid_y.append(y_valid[i])
 
 print(valid_x)
-# print(valid_y)
+print(valid_y)
 
 
 linear = model.predict(train_x)
 linear2 = model.predict(valid_x)
 
+
 plt.figure(figsize=(10, 6))
-plt.scatter(x, y, s=20, c="blue", alpha=0.5, label="Training Flight Data")
-plt.plot(x, linear, color="red", linewidth=2.5, label="Linear Fit")
-plt.scatter(x_valid, y_valid, s=20, c="green", alpha=0.5, label="validation Flight Data ")
-plt.plot(x_valid, linear2, color="black", linewidth=2.5, label="Linear validation")
+plt.scatter(train.date, y, s=20, c="blue", alpha=0.5, label="Training Flight Data")
+plt.plot(train.date,y)
+plt.plot(train.date, linear, color="red", linewidth=2.5, label="Linear Fit")
+plt.scatter(valid.date, y_valid, s=20, c="green", alpha=0.5, label="validation Flight Data ")
+plt.plot(valid.date,y_valid)
+plt.plot(valid.date, linear2, color="black", linewidth=2.5, label="Linear validation")
 plt.xlabel('Time')
 plt.ylabel('Flight')
 plt.title('Linear Model Fit + validation')
