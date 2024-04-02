@@ -91,3 +91,124 @@ plt.title('Linear Model Fit + validation')
 plt.legend()
 plt.grid(True)
 plt.show()
+
+
+"Cemiterio do codigo main.py"
+
+# train['lag'] = train['Flt'].shift(3)
+#
+# print(train)
+# X = train.loc[:,['lag']]
+# X.fillna(0,inplace=True)
+#
+# print(X)
+
+# print(df.iloc[29])
+
+
+# A = np.matmul(np.array(train_x).T,np.array(train_x))
+# B = np.linalg.inv(A)
+# C = np.matmul(B,np.array(train_x).T)
+# W = np.matmul(C,np.array(train_y).T)
+#
+# print(W)
+
+# coeffs = []
+# coeffs.append(W[1:])
+# print(coeffs)
+# linear = []
+#
+# # np.matmul(np.array(coeffs).T,np.array(train_x)) + W[0]
+# for j in range(num):
+#     linear.append(np.matmul(np.array(W).T, train_x[j]))
+
+
+
+# print(num_valid)
+# print(x[-3+0:])
+# print(x_valid[:1])
+# print(x[-3+1:] + x_valid[:1])
+# print(y_valid[1])
+
+# for i in range(num_valid):
+#
+#     # if i == 100:
+#     #     print('pare aqui')
+#     if num_valid-3-i < 0 & num_valid - i >= 0:
+#         valid_x.append(x[num_valid-3-i:] + x_valid[0:num_valid-i])
+#     else:
+#         valid_x.append(x_valid[num_valid - 3 - i:num_valid - i])
+#     valid_y.append(y_valid[num_valid-1-i])
+#
+
+# print(model.predict(np.array(train_x[3]).reshape(1,-1)))
+#
+# linear = model.predict(np.array(train_x))
+
+# # print(linear2)
+# # print(len(coeffs[0]))
+#
+#
+# # print('------------------------------------------------')
+# # print(coeffs[0])
+# # print(valid_x[60])
+# # y_pred = []
+# # y1 = np.matmul(coeffs[0],valid_x[60]) + coeffs[1]
+# # y_pred.append(y1)
+# # print(y_pred)
+# # print(linear2[60])
+# # for j in range(num_valid):
+# #     y_pred.append(np.matmul(coeffs[0], valid_x[j])+coeffs[1])
+#
+#
+
+# linear = []
+# for j in range(num-1):
+#     linear.append(model.predict(np.array(train_x[j]).reshape(1, -1)))
+
+
+# linear2 = []
+# for i in range(num_valid):
+#     linear2.append(model.predict(np.array(valid_x[i]).reshape(1, -1)))
+
+
+# treino = pd.DataFrame()
+# treino['tempos'] = train_x
+# treino['voo'] = train_y
+#
+# print(treino)
+
+
+# train_x = []
+# train_y = []
+# for i in range(num):
+#
+#     # if i == 100:
+#     #     print('pare aqui')
+#     if num-k-i-1 < 0 & num - i - 1 >= 0:
+#         train_x.append([0]*(i+k+1-num) + y[0:num-i-1])
+#     else:
+#         train_x.append(y[num - k - i - 1:num - i-1])
+#     train_x[i].reverse()
+#     train_y.append(y[num-1-i])
+#
+#
+# train_x.reverse()
+# train_y.reverse()
+
+
+# valid_x = []
+# valid_y = []
+
+# for i in range(num_valid):
+#
+#     # if i == 100:
+#     #     print('pare aqui')
+#     if i < k:
+#         valid_x.append(y[-k+i:] + y_valid[:i])
+#     elif i == k:
+#         valid_x.append(y_valid[:i])
+#     else:
+#         valid_x.append(y_valid[i-k:i])
+#     valid_x[i].reverse()
+#     valid_y.append(y_valid[i])
