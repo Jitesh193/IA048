@@ -10,6 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 import funcoes
+from sklearn.metrics import root_mean_squared_error
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
 
@@ -73,6 +74,9 @@ rmse_val = []           # Lista com os valores RMSE da validacao para cada valor
 
 for k in range(1, 25):
 
+    train_x = []
+    train_y = []
+
     train_x, train_y = funcoes.treino(y, num, k)
 
     # print(f'Os dados de treino x para k=3 sao {train_x}')
@@ -81,36 +85,29 @@ for k in range(1, 25):
     model = LinearRegression().fit(train_x, train_y)
     # coeffs = [model.coef_, model.intercept_]
 
-    # print(f'os coeficientes sao: {model.coef_}')
-    # print(f'O coeficiente linear eh: {model.intercept_} \n')
+    print(f'os coeficientes sao: {len(model.coef_)}')
+    print(f'O coeficiente linear eh: {model.intercept_} \n')
 
     "Parte da validacao"
-    # print('Dados de validacao:')
-    # print(valid)
-
-    # y_valid = list(valid['Flt'])
-
-    # num_valid = len(valid)
 
     valid_x, valid_y = funcoes.validacao(y, y_valid, num_valid, k)
 
-    # print(valid_x)
-    # print(valid_y)
-
-    # linear = model.predict(train_x)
-
-    # print(f'A saida estimada eh de: {linear}')
-
     linear2 = model.predict(valid_x)
 
-    MSE = np.square(np.subtract(y_valid, linear2)).mean()
-    RMSE = math.sqrt(MSE)
-
+    # MSE = np.square(np.subtract(y_valid, linear2)).mean()
+    # RMSE = math.sqrt(MSE)
+    RMSE = root_mean_squared_error(valid_y,linear2)
     rmse_val.append(RMSE)
 
-# plt.figure(figsize=(10,6))
-# plt.plot(1:25)
+print(f'Valores dos RMSE: {rmse_val}')
+print(f'O valor de k que gera o menor RMSE eh: {rmse_val.index(min(rmse_val))+1}')
 
+plt.figure(figsize=(10,6))
+plt.plot(rmse_val)
+plt.xlabel('Valores de k')
+plt.ylabel('RMSE')
+plt.grid(True)
+plt.show()
 
 # plt.figure(figsize=(10, 6))
 # plt.scatter(train.date[1:], y[1:], s=20, c="blue", alpha=0.5, label="Training Flight Data")
