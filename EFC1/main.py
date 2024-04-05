@@ -130,7 +130,7 @@ print(f'O MAPE para o conjunto de Teste eh: {mape_val:.5f}')
 
 
 plt.figure(figsize=(10,6))
-plt.plot(rmse_val)
+plt.plot(np.arange(1,25),rmse_val)
 plt.xlabel('Valores de k')
 plt.ylabel('RMSE')
 plt.grid(True)
