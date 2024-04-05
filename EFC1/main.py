@@ -56,11 +56,11 @@ train = df.iloc[0:index1+1].copy()
 valid = df.iloc[index1+1:index2+1].copy()
 test = df.iloc[index2+1:].copy()
 
-# print(train)
-# print('---------------------------------------')
-# print(valid)
-# print('---------------------------------------')
-# print(test)
+print(train)
+print('---------------------------------------')
+print(valid)
+print('---------------------------------------')
+print(test)
 
 
 y = list(train['Flt'])
