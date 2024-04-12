@@ -12,5 +12,3 @@ pd.set_option('display.width', 1000)
 df = pd.read_csv("X_train.txt", sep='\s+', header=None)
 
 print(df)
-
-print(type(df[0][1]))
