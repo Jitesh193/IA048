@@ -50,5 +50,5 @@ print('--'*50)
 
 recall = recall_score(test_y,y_hat,average=None)
 bacc = np.sum(recall)/(len(recall))
-print(recall_score(test_y,y_hat,average=None))
-print(bacc)
+print(f'O recall para o conjunto de teste é: \n {recall_score(test_y,y_hat,average=None)}')
+# print(bacc)
