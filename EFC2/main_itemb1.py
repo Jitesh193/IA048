@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import balanced_accuracy_score,recall_score
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
 
@@ -41,6 +42,20 @@ print(y_val)
 
 
 # Validacao
+bacc = []
 
-k=1
+for k in range(1, 21):
 
+    kNNReg = KNeighborsClassifier(n_neighbors=k)
+    kNNReg.fit(X_train, y_train)
+
+    y_hat = kNNReg.predict(X_val)
+
+    # Metricas de Avaliação Global
+    recall = recall_score(y_val,y_hat,average=None)
+    bA = np.sum(recall)/(len(recall))
+
+    bacc.append(bA)
+
+print(f'Os valores das Acurácia Balanceada são: {bacc}')
+print(f'O valor do k que gera o maior valor da Acurácia Balanceada é: {bacc.index(max(bacc))+1}')
