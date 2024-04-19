@@ -12,30 +12,27 @@ from sklearn.metrics import balanced_accuracy_score,classification_report,recall
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
 
-
+"Carregamento dos dados de Treinamento"
 train_x = pd.read_csv("X_train.txt", sep='\s+', header=None)
-
-# print(train_x.head(20))
-
 train_y = pd.read_csv("y_train.txt", sep='\s+', header=None)
 
-# print(train_y.head(20))
-
+"Carregamento dos dados de Teste"
 test_x = pd.read_csv("X_test.txt", sep='\s+', header=None)
 test_y = pd.read_csv("y_test.txt", sep='\s+', header=None)
 
-
+# Aplicação do Treinamento
 X = train_x[train_x.columns[0:]].values
 
 y = train_y.values
 y = np.ravel(y)
 
-
-softReg = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=250)
+softReg = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=250)   # Regressão do tipo SoftMax
 softReg.fit(X, y)
 
+# Aplicacao do Teste
 y_hat = softReg.predict(test_x)
 
+# Montagem da Matriz de Confusão
 C = confusion_matrix(test_y, y_hat)
 confusionMatrix = pd.DataFrame(data=C, index=['1, true', '2, true', '3, true', '4, true', '5, true', '6, true'], columns=['1, predicted', '2, predicted', '3, predicted', '4, predicted', '5, predicted', '6, predicted'])
 confusionMatrix.loc['sum'] = confusionMatrix.sum()

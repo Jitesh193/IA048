@@ -119,14 +119,17 @@ print(f'Os valores de recall para cada valor de k é: \n {Rec}')
 print('--'*50)
 
 # Re-treinamento com o k ótimo
-
 y2 = np.ravel(y_train)
 
-kNNReg = KNeighborsClassifier(n_neighbors=k_otimo)
-kNNReg.fit(x_train, y2)
+kNNReg2 = KNeighborsClassifier(n_neighbors=k_otimo, weights='distance')
+kNNReg2.fit(x_train, y2)
 
-y_hat2 = kNNReg.predict(x_test)
 
+# Aplicação dos dados de Teste no modelo
+y_hat2 = kNNReg2.predict(x_test)
+
+
+# Montagem da Matriz de Confusão
 C = confusion_matrix(y_test, y_hat2)
 confusionMatrix = pd.DataFrame(data=C, index=['1, true', '2, true', '3, true', '4, true', '5, true', '6, true'], columns=['1, predicted', '2, predicted', '3, predicted', '4, predicted', '5, predicted', '6, predicted'])
 confusionMatrix.loc['sum'] = confusionMatrix.sum()
