@@ -10,6 +10,7 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import balanced_accuracy_score,recall_score
+from sklearn.metrics import f1_score
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
 
@@ -86,3 +87,4 @@ print('--'*50)
 print(f'A acuracia balanceada foi de: {balanced_accuracy_score(y_test,y_hat2)}')
 print('--'*50)
 print(f'O recall para o conjunto de teste é: \n {recall_score(y_test,y_hat2,average=None)}')
+print(f'O F1 score para o conjunto de teste é: \n {f1_score(y_test,y_hat2,average=None)}')
